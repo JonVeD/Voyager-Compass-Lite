@@ -1,161 +1,21 @@
-/*
-  version 1.0
-  description: This function  generates the points. It will be called from the control-actions
-*/
-
-/// coordinates of compass angles
-compass_pos = [
-[3400, -225   ,"SE" ],
-[3401, -210   ,"140"],
-[3402, -195   ,"165"],
-
-[3403, -180    ,"S" ],
-
-[3405, -165   ,"195"],
-[3406, -150   ,"210"],
-[3407, -135   ,"SW" ],
-[3408, -120   ,"240"],
-[3409, -105   ,"255"],
-
-[3410, -090    ,"W" ],
-
-[3421, -075   ,"285"],
-[3422, -060   ,"300"],
-[3423, -045   ,"NW" ],
-[3424, -030   ,"330"],
-[3425, -015   ,"345"],
-
-[3426, 0       ,"N" ],
-
-[3427, 015   ,"15"  ],
-[3428, 030   ,"30"  ],
-[3429, 045   ,"NE"  ],
-[3430, 060   ,"60"  ],
-[3431, 075   ,"75"  ],
-
-[3432, 090   ,"E"   ],
-
-[3433, 105   ,"105" ],
-[3434, 120   ,"120" ],
-[3435, 135   ,"SE"  ],
-[3436, 150   ,"150" ],
-[3437, 165   ,"165" ],
-
-[3438, 180   ,"S"   ],
-
-[3439, 195   ,"195" ],
-[3440, 210   ,"210" ],
-[3441, 225   ,"SW"  ],
-[3442, 240   ,"240" ],
-[3443, 255   ,"255" ],
-
-[3445, 270   ,"W"   ],
-
-[3446, 285   ,"285" ],
-[3447, 300   ,"300" ],
-[3448, 315   ,"NW"  ],
-[3449, 330   ,"330" ],
-[3450, 345   ,"345" ],
-
-[3451, 360   ,"N"   ],
-
-[3452, 375   ,"15"  ],
-[3453, 390   ,"30"  ],
-[3454, 405   ,"NE"  ],
-[3455, 420   ,"60"  ],
-[3456, 435   ,"75"  ],
-
-[3457, 450   ,"E"   ],
-
-[3458, 465   ,"105" ],
-[3459, 480   ,"120" ],
-[3460, 495   ,"SE"  ],
-[3461, 510   ,"150" ],
-[3462, 525   ,"165" ],
-
-[3463, 540   ,"S"   ],
-
-[3464, 555   ,"195" ],
-[3465, 570   ,"210" ],
-[3466, 585  ,"SW"   ]
-];
-compass_pos_a3 = [
-[3410, 0       ,"no" ]
-];
-///
-
-_nc_lb_type = [compass_pos, compass_pos_a3];
-
-
 disableSerialization;
-params ["_compassType", "_ncNeedle","_ncFontSize","_ncShadow","_ncFontOption", "_ncAlpha", "_ncColorOption"];
-
-switch (_ncShadow) do { case (0): { _ncShadow = 0; }; case (1): { _ncShadow = 2; }; default { _ncShadow = 2; };};
-
-waitUntil {"ItemCompass" in (assignedItems Player)};
-
 
 _display = uiNamespace getVariable "RscTitleDisplayEmpty";
 
-/*for "_i" from 3399 to 3499 do
-{
-};*/
+GTX_grpBg = _display ctrlCreate ["RscStructuredText", 1656];
+GTX_grpBg ctrlSetBackgroundColor [0, 0, 0, 0.2];
+GTX_grpBg ctrlSetPosition [0.4 * safezoneW + safezoneX,0.01111 * safezoneH + safezoneY,0.2 * safezoneW,0.066 * safezoneH];
+GTX_grpBg ctrlCommit 0;
 
-ctrlDelete (_display displayCtrl 1656);
-ctrlDelete (_display displayCtrl 8583);
+GTX_ctrlGrp = _display ctrlCreate ["RscControlsGroup", 8583];
+GTX_ctrlGrp ctrlSetPosition [0.4 * safezoneW + safezoneX,0.01111 * safezoneH + safezoneY,0.2 * safezoneW,10 * safezoneH];
+GTX_ctrlGrp ctrlCommit 0;
 
-GTX_groupBackground = _display ctrlCreate ["RscStructuredText", 1656];
-GTX_groupBackground ctrlSetBackgroundColor [0, 0, 0, 0.05];
+GTX_compNeed = _display ctrlCreate ["RscStructuredText", 3398];
+GTX_compNeed ctrlSetPosition [(0.5 * safezoneW + safezoneX)- 0.05,-0.01 * safezoneH + safezoneY + 0.01,0.1,0.09 * safezoneH];
+GTX_compNeed ctrlSetStructuredText parseText ("<t shadow=1><t align='center' size='1' font='PuristaLight'>V");
+GTX_compNeed ctrlCommit 0;
 
-GTX_groupBackground ctrlSetPosition [(0.5 * safezoneW + safezoneX) - (ncW  * safezoneW),0.01111 * safezoneH + safezoneY,(ncW * safezoneW)*2,0.066 * safezoneH];
-GTX_groupBackground ctrlCommit 0;
-
-xxctrlGroup = _display ctrlCreate ["RscControlsGroup", 8583];
-
-xxctrlGroup ctrlSetPosition [(0.5 * safezoneW + safezoneX) - (ncW  * safezoneW),0.01111 * safezoneH + safezoneY + 0.01,(ncW * safezoneW)*2,10 * safezoneH];
-xxctrlGroup ctrlCommit 0;
-xxctrlGroup ctrlSetBackgroundColor [1, 0, 0, 1];
-
-_compass = _nc_lb_type select _compassType;
-
-_compassNeedle = _display ctrlCreate ["RscStructuredText", 3398];
-
-//_compassNeedle ctrlSetPosition [-2, -2, 0.05, 0.05];
-_compassNeedle ctrlSetPosition [(0.5 * safezoneW + safezoneX)- 0.05,-0.01 * safezoneH + safezoneY + 0.01,0.1,0.09 * safezoneH];
-
-//_compassNeedle ctrlSetStructuredText parseText format["<t shadow=2><t shadowColor='#ff0000' align='center' size='%1' color='#f9f9f9'>V</t><br /><br /><t shadow=2><t shadowColor='#ff0000' align='center' size='%2' color='#f9f9f9'>120</t>", 0.85, 1.35];
-//_compassNeedle ctrlSetBackgroundColor [1,1,1,1];
-_compassNeedle ctrlCommit 0;
-
-
-
-for "_i" from 0 to (count _compass - 1) do
-{
-  _idc = ((_compass select _i) select 0);
-  _dir = ((_compass select _i) select 2);
-  _arrayIndex = _i;//_compassType find _x;
-
-  nc_sizeX = 0.65 * _ncFontSize;
-  if (_arrayIndex % 6 == 3) then
-  {
-    nc_sizeX = 1 * _ncFontSize;
-  };
-  if (_arrayIndex % 6 == 0) then
-  {
-    nc_sizeX = 0.8 * _ncFontSize;
-  };
-  _edit = _display ctrlCreate ["RscStructuredText", _idc, xxctrlGroup];
-  _edit ctrlSetPosition [-2, -2, 0.05, 0.05];
-
-  _var_needle = "";
-  switch (_ncNeedle) do {
-    case (1): {
-      _var_needle = _dir + "<br />|</t>";
-    };
-    case (0): {
-      _var_needle = "|<br />" + _dir + "</t>";
-    };
-  };
-  _edit ctrlSetStructuredText parseText ("<t shadow=" + str _ncShadow + "><t shadowColor='#000000' align='center' size='" + str nc_sizeX + "' font='" + _ncFontOption + "' color='#" + _ncAlpha + _ncColorOption + "'>" + _var_needle);
-  _edit ctrlCommit 0;
-};
+UGTX_compImg = _display ctrlCreate ["RscPicture", 5432, GTX_ctrlGrp];
+UGTX_compImg ctrlSetText "imgs\default-puristax2.paa";
+UGTX_compImg ctrlCommit 0;
