@@ -1,11 +1,11 @@
-name = "Voyager Compass";
+name = "Voyager Compass Lite";
 picture = "\k\ugtx\addons\compass\data\ui\logo_voyager_compass_ca.paa";
 actionName = "Website";
-action = "https://arma.kestrelstudios.co.uk";
-description = "A PUBG style compass for Arma 3.";
+action = "";
+description = "A Overhead Compass HUD for Arma 3.";
 logo = "\k\ugtx\addons\compass\data\ui\logo_voyager_compass_ca.paa";
 logoOver = "\k\ugtx\addons\compass\data\ui\logo_voyager_compass_colour_co.paa";
-tooltip = "Voyager Cpmpass";
-overview = "A PUBG style compass for Arma 3.";
-author = "Unknown GTX & Flax";
+tooltip = "Voyager Compass Lite";
+overview = "A Overhead Compass HUD for Arma 3.";
+author = "Unknown_GTX";
 overviewPicture = "\k\ugtx\addons\compass\data\ui\logo_voyager_compass_ca.paa";

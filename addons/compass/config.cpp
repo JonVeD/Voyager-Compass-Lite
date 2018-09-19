@@ -1,7 +1,7 @@
 class CfgPatches {
   class UTGX_Compass {
-    author = "Unknown_GTX & Flax";
-    name = "Voyager Compass";
+    author = "Unknown_GTX";
+    name = "Voyager Compass Lite";
     requiredAddons[] = {"a3_characters_f"};
     requiredVersion = 0.1;
     units[] = {};
